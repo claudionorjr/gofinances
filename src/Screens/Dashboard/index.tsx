@@ -8,8 +8,10 @@ import {
   UserInfo,
   UserName,
   UserContainer,
+  CardsValues,
 } from './styles';
 import { Icon } from '../../Elements';
+import { CardValues } from '../../Components';
 
 const Dashboard = () => {
   return (
@@ -30,6 +32,18 @@ const Dashboard = () => {
           <Icon.Power size={24} />
         </UserContainer>
       </Header>
+      <CardsValues>
+        <CardValues
+          lastTransation="asdasdasdddasadss"
+          type="income"
+          value="1250,00"
+        />
+        <CardValues
+          lastTransation="asdasdasdddasadss"
+          type="income"
+          value="1250,00"
+        />
+      </CardsValues>
     </Container>
   );
 };

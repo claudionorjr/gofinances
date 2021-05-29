@@ -1,4 +1,6 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
+import { Platform } from 'react-native';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { normalizePixel } from '../../Helpers';
 
 export const Container = styled.View`
@@ -8,10 +10,21 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   width: 100%;
-  height: ${normalizePixel(278, 'height')}px;
   background-color: ${({ theme }) => theme.colors.primary};
   padding-horizontal: ${normalizePixel(24)}px;
-  padding-top: ${normalizePixel(24)}px;
+  padding-top: ${normalizePixel(24, 'height')}px;
+
+  ${Platform.OS === 'android' &&
+  css`
+    height: ${normalizePixel(278, 'height')}px;
+    padding-top: ${normalizePixel(24, 'height')}px;
+  `}
+
+  ${Platform.OS === 'ios' &&
+  css`
+    height: ${normalizePixel(278 + getStatusBarHeight(), 'height')}px;
+    padding-top: ${normalizePixel(24 + getStatusBarHeight(), 'height')}px;
+  `}
 `;
 
 export const UserContainer = styled.View`
@@ -41,10 +54,18 @@ export const UserGreeting = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
   font-size: ${normalizePixel(18)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
+  line-height: ${normalizePixel(24, 'height')}px;
 `;
 
 export const UserName = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
-  font-size: ${normalizePixel(18)};
+  font-size: ${normalizePixel(18)}px;
   font-family: ${({ theme }) => theme.fonts.bold};
+  line-height: ${normalizePixel(24, 'height')}px;
 `;
+
+export const CardsValues = styled.ScrollView.attrs({
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+  contentContainerStyle: { paddingHorizontal: 24 },
+})``;
