@@ -12,18 +12,17 @@ export const Header = styled.View`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.primary};
   padding-horizontal: ${normalizePixel(24)}px;
-  padding-top: ${normalizePixel(24, 'height')}px;
 
   ${Platform.OS === 'android' &&
   css`
-    height: ${normalizePixel(278, 'height')}px;
-    padding-top: ${normalizePixel(24, 'height')}px;
+    height: ${normalizePixel(248, 'height')}px;
+    padding-top: ${normalizePixel(25, 'height')}px;
   `}
 
   ${Platform.OS === 'ios' &&
   css`
     height: ${normalizePixel(278 + getStatusBarHeight(), 'height')}px;
-    padding-top: ${normalizePixel(24 + getStatusBarHeight(), 'height')}px;
+    padding-top: ${normalizePixel(25 + getStatusBarHeight(), 'height')}px;
   `}
 `;
 
@@ -54,18 +53,31 @@ export const UserGreeting = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
   font-size: ${normalizePixel(18)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
-  line-height: ${normalizePixel(24, 'height')}px;
+  line-height: ${normalizePixel(24)}px;
 `;
 
 export const UserName = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
   font-size: ${normalizePixel(18)}px;
   font-family: ${({ theme }) => theme.fonts.bold};
-  line-height: ${normalizePixel(24, 'height')}px;
+  line-height: ${normalizePixel(24)}px;
 `;
 
 export const CardsValues = styled.ScrollView.attrs({
   horizontal: true,
   showsHorizontalScrollIndicator: false,
   contentContainerStyle: { paddingHorizontal: 24 },
-})``;
+})`
+  width: 100%;
+  position: absolute;
+
+  ${Platform.OS === 'android' &&
+  css`
+    top: ${normalizePixel(100, 'height')}px;
+  `}
+
+  ${Platform.OS === 'ios' &&
+  css`
+    top: ${normalizePixel(100 + getStatusBarHeight(), 'height')}px;
+  `}
+`;

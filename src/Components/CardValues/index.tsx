@@ -16,10 +16,12 @@ interface Props {
 }
 
 const CardValues = ({ type, value, lastTransation }: Props) => {
+  const checkTypeCardIndicator =
+    type === 'income' ? 'Entradas' : type === 'outcome' ? 'Saídas' : 'Total';
   return (
     <Container type={type}>
       <ContainerCard>
-        <TextTypeCard type={type}>Saída</TextTypeCard>
+        <TextTypeCard type={type}>{checkTypeCardIndicator}</TextTypeCard>
         {type === 'income' ? (
           <Icon.ArrowIncome size={40} />
         ) : type === 'outcome' ? (

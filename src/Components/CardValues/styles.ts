@@ -30,7 +30,7 @@ export const TextTypeCard = styled.Text<CardTypeProps>`
 
   font-size: ${normalizePixel(14)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
-  line-height: ${normalizePixel(21, 'height')}px;
+  line-height: ${normalizePixel(21)}px;
 `;
 
 export const ContainerInfos = styled.View`
@@ -48,7 +48,7 @@ export const Value = styled.Text<CardTypeProps>`
 
   font-size: ${normalizePixel(32)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
-  line-height: ${normalizePixel(48, 'height')}px;
+  line-height: ${normalizePixel(48)}px;
 `;
 
 export const LastTransation = styled.Text<CardTypeProps>`
@@ -57,5 +57,5 @@ export const LastTransation = styled.Text<CardTypeProps>`
 
   font-size: ${normalizePixel(12)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
-  line-height: ${normalizePixel(18, 'height')}px;
+  line-height: ${normalizePixel(18)}px;
 `;

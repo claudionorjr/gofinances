@@ -40,7 +40,12 @@ const Dashboard = () => {
         />
         <CardValues
           lastTransation="asdasdasdddasadss"
-          type="income"
+          type="outcome"
+          value="1250,00"
+        />
+        <CardValues
+          lastTransation="asdasdasdddasadss"
+          type="total"
           value="1250,00"
         />
       </CardsValues>
