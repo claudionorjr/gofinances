@@ -14,7 +14,7 @@ export const Container = styled.View<CardTypeProps>`
     type === 'total' ? theme.colors.secondary : theme.colors.shape};
 
   border-radius: 5px;
-  margin-right: ${normalizePixel(16)}px;
+  margin: 0 ${normalizePixel(8)}px;
 `;
 
 export const ContainerCard = styled.View`
@@ -42,7 +42,7 @@ export const ContainerInfos = styled.View`
   margin-bottom: ${normalizePixel(20, 'height')}px;
 `;
 
-export const Value = styled.Text<CardTypeProps>`
+export const Amount = styled.Text<CardTypeProps>`
   color: ${({ theme, type }) =>
     type === 'total' ? theme.colors.shape : theme.colors.title};
 

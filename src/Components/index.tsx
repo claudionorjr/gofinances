@@ -1,3 +1,4 @@
-import CardValues from './CardValues';
+import CardResume from './CardResume';
+import CardTransaction from './CardTransaction';
 
-export { CardValues };
+export { CardResume, CardTransaction };

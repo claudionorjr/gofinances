@@ -1,23 +1,27 @@
 import React from 'react';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Icon } from '../../Elements';
+import { useTheme } from '../../Hooks';
 import {
   Container,
   TextTypeCard,
   ContainerCard,
   ContainerInfos,
-  Value,
+  Amount,
   LastTransation,
 } from './styles';
 
 interface Props {
   type: 'income' | 'outcome' | 'total';
-  value: number | string;
+  amount: number | string;
   lastTransation: string;
 }
 
-const CardValues = ({ type, value, lastTransation }: Props) => {
+const CardResume = ({ type, amount, lastTransation }: Props) => {
   const checkTypeCardIndicator =
     type === 'income' ? 'Entradas' : type === 'outcome' ? 'Saídas' : 'Total';
+
+  const { colors } = useTheme();
   return (
     <Container type={type}>
       <ContainerCard>
@@ -27,15 +31,15 @@ const CardValues = ({ type, value, lastTransation }: Props) => {
         ) : type === 'outcome' ? (
           <Icon.ArrowOutcome size={40} />
         ) : (
-          <Icon.Money size={40} />
+          <Icon.Money color={colors.shape} size={40} />
         )}
       </ContainerCard>
       <ContainerInfos>
-        <Value type={type}>R$ {value}</Value>
+        <Amount type={type}>R$ {amount}</Amount>
         <LastTransation type={type}>{lastTransation}</LastTransation>
       </ContainerInfos>
     </Container>
   );
 };
 
-export default CardValues;
+export default CardResume;

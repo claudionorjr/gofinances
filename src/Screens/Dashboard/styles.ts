@@ -1,6 +1,9 @@
 import styled, { css } from 'styled-components/native';
 import { Platform } from 'react-native';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import {
+  getBottomSpace,
+  getStatusBarHeight,
+} from 'react-native-iphone-x-helper';
 import { normalizePixel } from '../../Helpers';
 
 export const Container = styled.View`
@@ -21,7 +24,7 @@ export const Header = styled.View`
 
   ${Platform.OS === 'ios' &&
   css`
-    height: ${normalizePixel(278 + getStatusBarHeight(), 'height')}px;
+    height: ${normalizePixel(248 + getStatusBarHeight(), 'height')}px;
     padding-top: ${normalizePixel(25 + getStatusBarHeight(), 'height')}px;
   `}
 `;
@@ -66,7 +69,7 @@ export const UserName = styled.Text`
 export const CardsValues = styled.ScrollView.attrs({
   horizontal: true,
   showsHorizontalScrollIndicator: false,
-  contentContainerStyle: { paddingHorizontal: 24 },
+  contentContainerStyle: { paddingHorizontal: 16 },
 })`
   width: 100%;
   position: absolute;
@@ -81,3 +84,23 @@ export const CardsValues = styled.ScrollView.attrs({
     top: ${normalizePixel(100 + getStatusBarHeight(), 'height')}px;
   `}
 `;
+
+export const Transactions = styled.View`
+  flex: 1;
+  padding-horizontal: ${normalizePixel(24)}px;
+  margin-top: ${normalizePixel(84, 'height')}px;
+`;
+export const TitleTransactions = styled.Text`
+  color: ${({ theme }) => theme.colors.title};
+  font-size: ${normalizePixel(18)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  line-height: ${normalizePixel(27)}px;
+  margin-bottom: ${normalizePixel(16, 'height')}px;
+`;
+
+export const TransactionsList = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    paddingBottom: getBottomSpace(),
+  },
+})``;
