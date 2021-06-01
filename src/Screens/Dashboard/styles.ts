@@ -1,10 +1,11 @@
 import styled, { css } from 'styled-components/native';
-import { Platform } from 'react-native';
+import { FlatList, Platform } from 'react-native';
 import {
   getBottomSpace,
   getStatusBarHeight,
 } from 'react-native-iphone-x-helper';
 import { normalizePixel } from '../../Helpers';
+import { Transaction } from '../../@Types/Transaction';
 
 export const Container = styled.View`
   flex: 1;
@@ -98,7 +99,9 @@ export const TitleTransactions = styled.Text`
   margin-bottom: ${normalizePixel(16, 'height')}px;
 `;
 
-export const TransactionsList = styled.FlatList.attrs({
+export const TransactionsList = styled(
+  FlatList as new () => FlatList<Transaction>,
+).attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {
     paddingBottom: getBottomSpace(),

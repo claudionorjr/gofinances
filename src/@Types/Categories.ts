@@ -1,3 +1,3 @@
 export interface Categories {
-  categories: 'sales' | 'food';
+  categories: 'sales' | 'food' | 'car';
 }

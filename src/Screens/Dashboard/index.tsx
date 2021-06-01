@@ -1,5 +1,4 @@
 import React from 'react';
-import { getBottomSpace } from 'react-native-iphone-x-helper';
 import {
   Container,
   Header,
@@ -21,6 +20,7 @@ import { Transaction } from '../../@Types/Transaction';
 const Dashboard = () => {
   const transactions: Transaction[] = [
     {
+      id: '1',
       amount: '12.000,00',
       date: '13/04/2020',
       title: 'Desenvolvimento de site',
@@ -28,6 +28,7 @@ const Dashboard = () => {
       categories: 'sales',
     },
     {
+      id: '2',
       amount: '50,00',
       date: '13/04/2020',
       title: 'Almoço',
@@ -35,6 +36,7 @@ const Dashboard = () => {
       categories: 'food',
     },
     {
+      id: '3',
       amount: '30,00',
       date: '13/04/2020',
       title: 'Lanche',
@@ -42,6 +44,7 @@ const Dashboard = () => {
       categories: 'food',
     },
     {
+      id: '4',
       amount: '5,00',
       date: '13/04/2020',
       title: 'Água',
@@ -89,6 +92,7 @@ const Dashboard = () => {
         <TitleTransactions>Listagem</TitleTransactions>
         <TransactionsList
           data={transactions}
+          keyExtractor={item => `${item.id}`}
           renderItem={({ item }) => (
             <CardTransaction
               amount={item.amount}

@@ -14,6 +14,11 @@ const getInfoInTransactions = ({ categories }: Categories): Props => {
         text: 'Alimentação',
         icon: <Icon.Food size={20} />,
       };
+    case 'car':
+      return {
+        text: 'Carro',
+        icon: <Icon.Money size={20} />,
+      };
     default:
       return {
         text: 'Vendas',

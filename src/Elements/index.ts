@@ -3,6 +3,8 @@ import Money from './Icons/Money';
 import ArrowIncome from './Icons/ArrowIncome';
 import ArrowOutcome from './Icons/ArrowOutcome';
 import Food from './Icons/Food';
+import Button from './Button';
+import Input from './Input';
 
 const Icon = {
   Power,
@@ -12,4 +14,4 @@ const Icon = {
   Food,
 };
 
-export { Icon };
+export { Icon, Input, Button };
