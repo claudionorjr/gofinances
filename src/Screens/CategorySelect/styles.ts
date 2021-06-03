@@ -1,11 +1,12 @@
 import styled from 'styled-components/native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { normalizePixel } from '../../Helpers';
 
 interface CategoryProps {
   isActive: boolean;
 }
 
-export const Container = styled.View`
+export const Container = styled(GestureHandlerRootView)`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.background};
 `;

@@ -1,8 +1,8 @@
-import { TouchableOpacity } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 import { normalizePixel } from '../../Helpers';
 
-export const Container = styled(TouchableOpacity)`
+export const Container = styled(RectButton)`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.secondary};
   height: ${normalizePixel(56)}px;

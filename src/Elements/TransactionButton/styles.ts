@@ -1,4 +1,4 @@
-import { TouchableOpacity } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
 import styled, { css } from 'styled-components/native';
 import { normalizePixel } from '../../Helpers';
 
@@ -7,14 +7,12 @@ interface Props {
   buttonType: 'income' | 'outcome';
 }
 
-export const Container = styled(TouchableOpacity)<Props>`
+export const Container = styled.View<Props>`
   margin-top: ${normalizePixel(8)}px;
   margin-bottom: ${normalizePixel(16)}px;
   width: ${normalizePixel(160)}px;
   height: ${normalizePixel(56)}px;
   border-radius: 5px;
-  justify-content: center;
-  align-items: center;
   background-color: ${({ theme, selected, buttonType }) => {
     return buttonType === 'income' && selected.isIncome
       ? theme.colors.successLight
@@ -37,7 +35,13 @@ export const Container = styled(TouchableOpacity)<Props>`
 
   border-style: solid;
   border-color: ${({ theme }) => theme.colors.text};
+`;
+
+export const Button = styled(RectButton)`
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   padding: ${normalizePixel(16)}px ${normalizePixel(35)}px;
 `;
 

@@ -13,6 +13,7 @@ import {
   Transactions,
   TitleTransactions,
   TransactionsList,
+  LogoutButton,
 } from './styles';
 import { CardResume, CardTransaction } from '../../Components';
 import { Transaction } from '../../@Types/Transaction';
@@ -72,11 +73,13 @@ const Dashboard = () => {
               <UserName>Fulano</UserName>
             </User>
           </UserInfo>
-          <Feather
-            size={normalizePixel(24)}
-            name="power"
-            color={colors.secondary}
-          />
+          <LogoutButton onPress={() => {}}>
+            <Feather
+              size={normalizePixel(24)}
+              name="power"
+              color={colors.secondary}
+            />
+          </LogoutButton>
         </UserContainer>
       </Header>
       <CardsValues>

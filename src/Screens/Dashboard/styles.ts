@@ -4,6 +4,7 @@ import {
   getBottomSpace,
   getStatusBarHeight,
 } from 'react-native-iphone-x-helper';
+import { BorderlessButton } from 'react-native-gesture-handler';
 import { normalizePixel } from '../../Helpers';
 import { Transaction } from '../../@Types/Transaction';
 
@@ -66,6 +67,8 @@ export const UserName = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   line-height: ${normalizePixel(24)}px;
 `;
+
+export const LogoutButton = styled(BorderlessButton)``;
 
 export const CardsValues = styled.ScrollView.attrs({
   horizontal: true,
