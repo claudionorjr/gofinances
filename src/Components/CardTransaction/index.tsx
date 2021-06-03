@@ -1,6 +1,6 @@
 import React from 'react';
-import { Categories } from '../../@Types/Categories';
 import getInfoInTransactions from '../../Helpers/getInfoInTransactions';
+import { useTheme } from '../../Hooks';
 import {
   Container,
   ContainerCard,
@@ -12,11 +12,12 @@ import {
   DateText,
 } from './styles';
 
-interface Props extends Categories {
+interface Props {
   typeMoney: 'income' | 'outcome';
   title: string;
   amount: string;
   date: string | Date;
+  category: string;
 }
 
 const CardTransaction = ({
@@ -24,9 +25,10 @@ const CardTransaction = ({
   date,
   title,
   typeMoney,
-  categories,
+  category,
 }: Props) => {
-  const getInfoInTransaction = getInfoInTransactions({ categories });
+  const { colors } = useTheme();
+  const getInfoInTransaction = getInfoInTransactions(category, colors.text);
   return (
     <Container>
       <ContainerCard>

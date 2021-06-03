@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import AppLoading from 'expo-app-loading';
 import {
@@ -6,10 +7,11 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
+import { NavigationContainer } from '@react-navigation/native';
+
 import { StatusBar } from 'react-native';
-import Dashboard from './Screens/Dashboard';
 import { AppProvider } from './Hooks';
-import Register from './Screens/Register';
+import AppRoutes from './Routes/app.routes';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -24,7 +26,9 @@ const App = () => {
   return (
     <AppProvider>
       <StatusBar barStyle="light-content" backgroundColor="#5636D3" />
-      <Register />
+      <NavigationContainer>
+        <AppRoutes />
+      </NavigationContainer>
     </AppProvider>
   );
 };

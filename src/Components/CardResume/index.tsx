@@ -1,6 +1,5 @@
 import React from 'react';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { Icon } from '../../Elements';
+import { Feather } from '@expo/vector-icons';
 import { useTheme } from '../../Hooks';
 import {
   Container,
@@ -10,6 +9,7 @@ import {
   Amount,
   LastTransation,
 } from './styles';
+import { normalizePixel } from '../../Helpers';
 
 interface Props {
   type: 'income' | 'outcome' | 'total';
@@ -27,11 +27,23 @@ const CardResume = ({ type, amount, lastTransation }: Props) => {
       <ContainerCard>
         <TextTypeCard type={type}>{checkTypeCardIndicator}</TextTypeCard>
         {type === 'income' ? (
-          <Icon.ArrowIncome size={40} />
+          <Feather
+            size={normalizePixel(40)}
+            name="arrow-up-circle"
+            color={colors.success}
+          />
         ) : type === 'outcome' ? (
-          <Icon.ArrowOutcome size={40} />
+          <Feather
+            size={normalizePixel(40)}
+            name="arrow-down-circle"
+            color={colors.attention}
+          />
         ) : (
-          <Icon.Money color={colors.shape} size={40} />
+          <Feather
+            size={normalizePixel(40)}
+            name="dollar-sign"
+            color={colors.shape}
+          />
         )}
       </ContainerCard>
       <ContainerInfos>

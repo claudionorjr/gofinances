@@ -1,4 +1,5 @@
 import CardResume from './CardResume';
 import CardTransaction from './CardTransaction';
+import Header from './Header';
 
-export { CardResume, CardTransaction };
+export { CardResume, CardTransaction, Header };

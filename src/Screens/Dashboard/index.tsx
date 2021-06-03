@@ -1,4 +1,5 @@
 import React from 'react';
+import { Feather } from '@expo/vector-icons';
 import {
   Container,
   Header,
@@ -13,9 +14,10 @@ import {
   TitleTransactions,
   TransactionsList,
 } from './styles';
-import { Icon } from '../../Elements';
 import { CardResume, CardTransaction } from '../../Components';
 import { Transaction } from '../../@Types/Transaction';
+import { normalizePixel } from '../../Helpers';
+import { useTheme } from '../../Hooks';
 
 const Dashboard = () => {
   const transactions: Transaction[] = [
@@ -25,7 +27,7 @@ const Dashboard = () => {
       date: '13/04/2020',
       title: 'Desenvolvimento de site',
       typeMoney: 'income',
-      categories: 'sales',
+      category: 'sales',
     },
     {
       id: '2',
@@ -33,7 +35,7 @@ const Dashboard = () => {
       date: '13/04/2020',
       title: 'Almoço',
       typeMoney: 'outcome',
-      categories: 'food',
+      category: 'food',
     },
     {
       id: '3',
@@ -41,17 +43,19 @@ const Dashboard = () => {
       date: '13/04/2020',
       title: 'Lanche',
       typeMoney: 'outcome',
-      categories: 'food',
+      category: 'food',
     },
     {
       id: '4',
       amount: '5,00',
       date: '13/04/2020',
-      title: 'Água',
+      title: 'Reparos do Carro',
       typeMoney: 'outcome',
-      categories: 'food',
+      category: 'car',
     },
   ];
+
+  const { colors } = useTheme();
 
   return (
     <Container>
@@ -68,7 +72,11 @@ const Dashboard = () => {
               <UserName>Fulano</UserName>
             </User>
           </UserInfo>
-          <Icon.Power size={24} />
+          <Feather
+            size={normalizePixel(24)}
+            name="power"
+            color={colors.secondary}
+          />
         </UserContainer>
       </Header>
       <CardsValues>
@@ -99,7 +107,7 @@ const Dashboard = () => {
               date={item.date}
               title={item.title}
               typeMoney={item.typeMoney}
-              categories={item.categories}
+              category={item.category}
             />
           )}
         />

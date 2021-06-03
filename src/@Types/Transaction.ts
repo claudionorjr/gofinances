@@ -1,9 +1,8 @@
-import { Categories } from './Categories';
-
-export interface Transaction extends Categories {
+export interface Transaction {
   id: number | string;
   amount: string;
   date: string | Date;
   title: string;
   typeMoney: 'income' | 'outcome';
+  category: string;
 }

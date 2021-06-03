@@ -1,7 +1,9 @@
 import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
-import { Icon } from '..';
+import { Feather } from '@expo/vector-icons';
+import { useTheme } from '../../Hooks';
 import { Container, ButtonText } from './styles';
+import { normalizePixel } from '../../Helpers';
 
 interface Props extends TouchableOpacityProps {
   title: string;
@@ -10,12 +12,21 @@ interface Props extends TouchableOpacityProps {
 }
 
 const TransactionButton = ({ title, buttonType, selected, ...rest }: Props) => {
+  const { colors } = useTheme();
   return (
     <Container selected={selected} buttonType={buttonType} {...rest}>
       {buttonType === 'income' ? (
-        <Icon.ArrowIncome size={24} />
+        <Feather
+          size={normalizePixel(24)}
+          name="arrow-up-circle"
+          color={colors.success}
+        />
       ) : (
-        <Icon.ArrowOutcome size={24} />
+        <Feather
+          size={normalizePixel(24)}
+          name="arrow-down-circle"
+          color={colors.attention}
+        />
       )}
       <ButtonText>{title}</ButtonText>
     </Container>

@@ -8,6 +8,8 @@ interface Props {
 }
 
 export const Container = styled(TouchableOpacity)<Props>`
+  margin-top: ${normalizePixel(8)}px;
+  margin-bottom: ${normalizePixel(16)}px;
   width: ${normalizePixel(160)}px;
   height: ${normalizePixel(56)}px;
   border-radius: 5px;
@@ -20,7 +22,19 @@ export const Container = styled(TouchableOpacity)<Props>`
       ? theme.colors.attentionLight
       : 'transparent';
   }};
-  border-width: 1.5px;
+  ${({ selected, buttonType }) =>
+    selected.isIncome && buttonType === 'income'
+      ? css`
+          border-width: 0px;
+        `
+      : selected.isOutcome && buttonType === 'outcome'
+      ? css`
+          border-width: 0px;
+        `
+      : css`
+          border-width: 1.5px;
+        `}
+
   border-style: solid;
   border-color: ${({ theme }) => theme.colors.text};
   flex-direction: row;
