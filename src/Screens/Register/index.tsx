@@ -3,7 +3,6 @@ import { Keyboard, Modal, TouchableWithoutFeedback, Alert } from 'react-native';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   Input,
@@ -15,7 +14,7 @@ import { Header } from '../../Components';
 import { Container, Form, Fields, SelectButtonsContainer } from './styles';
 import CategorySelect from '../CategorySelect';
 import getInfoInTransactions from '../../Helpers/getInfoInTransactions';
-import { useTransaction } from '../../Hooks/Transaction';
+import { useTransaction } from '../../Hooks';
 import { Transaction } from '../../@Types/Transaction';
 
 interface FormData {
@@ -29,7 +28,21 @@ const Register = () => {
   const [isModal, setIsModal] = useState(false);
   const [category, setCategory] = useState('');
 
-  const { newTransaction, transactions } = useTransaction();
+  const { newTransaction } = useTransaction();
+
+  const schema = Yup.object().shape({
+    name: Yup.string().required('Nome é obrigatório'),
+    amount: Yup.number()
+      .typeError('Informe um valor númerico')
+      .positive('Informe um valor positivo'),
+  });
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
 
   const handleIncome = useCallback(() => {
     setIsIncome(true);
@@ -44,13 +57,6 @@ const Register = () => {
   const handleModal = useCallback(() => {
     setIsModal(!isModal);
   }, [isModal]);
-
-  const schema = Yup.object().shape({
-    name: Yup.string().required('Nome é obrigatório'),
-    amount: Yup.number()
-      .typeError('Informe um valor númerico')
-      .positive('Informe um valor positivo'),
-  });
 
   const handleRegister = useCallback(
     async (form: FormData) => {
@@ -69,6 +75,7 @@ const Register = () => {
         category,
       };
       try {
+        reset();
         await newTransaction(data);
         Alert.alert('Sucesso!', 'Seu item foi salvo :D');
       } catch (err) {
@@ -78,16 +85,6 @@ const Register = () => {
     },
     [isIncome, isOutcome, category],
   );
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
-
-  useEffect(() => {
-    console.log(transactions);
-  }, [transactions]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

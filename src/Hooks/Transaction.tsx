@@ -43,7 +43,9 @@ const TransactionProvider: React.FC = ({ children }) => {
       };
       await AsyncStorage.setItem(
         '@gofinances:transactions',
-        JSON.stringify([...transactions, newData]),
+        JSON.stringify(
+          transactions == null ? [newData] : [...transactions, newData],
+        ),
       );
     },
     [transactions],
