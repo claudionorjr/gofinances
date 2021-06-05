@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Keyboard, Modal, TouchableWithoutFeedback, Alert } from 'react-native';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   Input,
@@ -14,6 +15,8 @@ import { Header } from '../../Components';
 import { Container, Form, Fields, SelectButtonsContainer } from './styles';
 import CategorySelect from '../CategorySelect';
 import getInfoInTransactions from '../../Helpers/getInfoInTransactions';
+import { useTransaction } from '../../Hooks/Transaction';
+import { Transaction } from '../../@Types/Transaction';
 
 interface FormData {
   name: string;
@@ -25,6 +28,8 @@ const Register = () => {
   const [isOutcome, setIsOutcome] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [category, setCategory] = useState('');
+
+  const { newTransaction, transactions } = useTransaction();
 
   const handleIncome = useCallback(() => {
     setIsIncome(true);
@@ -48,7 +53,7 @@ const Register = () => {
   });
 
   const handleRegister = useCallback(
-    (form: FormData) => {
+    async (form: FormData) => {
       if (!isIncome && !isOutcome) {
         return Alert.alert('Ops...', 'Selecione o tipo da transação.');
       }
@@ -57,13 +62,19 @@ const Register = () => {
         return Alert.alert('Ops...', 'Selecione uma categoria.');
       }
 
-      const data = {
+      const data: Transaction = {
         name: form.name,
         amount: form.amount,
         transactionType: isIncome ? 'income' : isOutcome ? 'outcome' : null,
         category,
       };
-      return console.log(data);
+      try {
+        await newTransaction(data);
+        Alert.alert('Sucesso!', 'Seu item foi salvo :D');
+      } catch (err) {
+        console.log(err);
+        Alert.alert('Ops...', 'Não foi possivel salvar');
+      }
     },
     [isIncome, isOutcome, category],
   );
@@ -73,6 +84,10 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
+
+  useEffect(() => {
+    console.log(transactions);
+  }, [transactions]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
