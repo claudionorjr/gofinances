@@ -7,12 +7,18 @@ import React, {
   useState,
 } from 'react';
 import uuid from 'react-native-uuid';
-import { Transaction } from '../@Types/Transaction';
+import { Transaction, TotalTransactions } from '../@Types/Transaction';
+import { formatDate } from '../Helpers';
+
+interface GetAllTransactions {
+  transactions: Transaction[];
+  totalTransactions: TotalTransactions;
+}
 
 interface TransactionData {
   newTransaction: (data: Transaction) => Promise<void>;
   removeTransaction: (id: string) => Promise<void>;
-  transactions: Transaction[];
+  getAllTransactions: () => Promise<GetAllTransactions>;
 }
 
 const TransactionContext = createContext<TransactionData>(
@@ -26,21 +32,55 @@ const TransactionProvider: React.FC = ({ children }) => {
     [] as Transaction[],
   );
 
+  const managerTransactions = async (): Promise<GetAllTransactions> => {
+    const response = await AsyncStorage.getItem('@gofinances:transactions');
+    console.log('response', response);
+    const transactionsArray: Transaction[] = JSON.parse(response!);
+    console.log('transactionsArray', transactionsArray);
+    setTransactions(transactionsArray);
+
+    let totalTransactions: TotalTransactions = {
+      totalIncome: 0,
+      totalOutcome: 0,
+      total: 0,
+    };
+
+    transactionsArray.map(data => {
+      if (data.transactionType === 'income') {
+        totalTransactions.totalIncome += Number(data.amount);
+      } else {
+        totalTransactions.totalOutcome += Number(data.amount);
+      }
+    });
+    totalTransactions.total =
+      totalTransactions.totalIncome - totalTransactions.totalOutcome;
+    return {
+      totalTransactions,
+      transactions: transactionsArray,
+    };
+  };
+
   useEffect(() => {
-    async function loadData() {
-      const result = await AsyncStorage.getItem('@gofinances:transactions');
-      setTransactions(JSON.parse(result!));
-    }
-    loadData();
+    managerTransactions();
   }, []);
+
+  const getAllTransactions =
+    useCallback(async (): Promise<GetAllTransactions> => {
+      const response = await managerTransactions();
+      return response;
+    }, []);
 
   const newTransaction = useCallback(
     async (data: Transaction) => {
       const newData: Transaction = {
         id: String(uuid.v4()),
-        date: new Date(),
-        ...data,
+        date: formatDate(new Date()),
+        amount: data.amount,
+        category: data.category,
+        name: data.name,
+        transactionType: data.transactionType,
       };
+
       await AsyncStorage.setItem(
         '@gofinances:transactions',
         JSON.stringify(
@@ -65,7 +105,7 @@ const TransactionProvider: React.FC = ({ children }) => {
 
   return (
     <TransactionContext.Provider
-      value={{ newTransaction, removeTransaction, transactions }}
+      value={{ newTransaction, removeTransaction, getAllTransactions }}
     >
       {children}
     </TransactionContext.Provider>

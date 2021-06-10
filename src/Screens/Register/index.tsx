@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Keyboard, Modal, TouchableWithoutFeedback, Alert } from 'react-native';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { useNavigation } from '@react-navigation/native';
 import {
   Input,
   Button,
@@ -29,6 +30,7 @@ const Register = () => {
   const [category, setCategory] = useState('');
 
   const { newTransaction } = useTransaction();
+  const navigation = useNavigation();
 
   const schema = Yup.object().shape({
     name: Yup.string().required('Nome é obrigatório'),
@@ -78,6 +80,7 @@ const Register = () => {
         reset();
         await newTransaction(data);
         Alert.alert('Sucesso!', 'Seu item foi salvo :D');
+        navigation.navigate('Listagem');
       } catch (err) {
         console.log(err);
         Alert.alert('Ops...', 'Não foi possivel salvar');

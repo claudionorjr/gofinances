@@ -26,6 +26,9 @@
         "__DEV__": "readonly"
     },
     "rules": {
+        "no-return-await": "off",
+        "array-callback-return": "off",
+        "prefer-const": "off",
         "consistent-return":"off",
         "react/require-default-props": "off",
         "camelcase":"off",

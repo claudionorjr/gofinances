@@ -16,7 +16,7 @@ interface Props {
   typeMoney: 'income' | 'outcome';
   title: string;
   amount: string;
-  date: string | Date;
+  date: string;
   category: string;
 }
 
